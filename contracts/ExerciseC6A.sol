@@ -16,7 +16,7 @@ contract ExerciseC6A {
     address private contractOwner;                  // Account used to deploy contract
     mapping(address => UserProfile) userProfiles;   // Mapping for storing user profiles
 
-
+    bool private operational = true;
 
     /********************************************************************************************/
     /*                                       EVENT DEFINITIONS                                  */
@@ -52,6 +52,12 @@ contract ExerciseC6A {
         _;
     }
 
+    modifier requireIsOperational()
+    {
+        require(operational, "Contract is currently not operational");
+        _;
+    }
+
     /********************************************************************************************/
     /*                                       UTILITY FUNCTIONS                                  */
     /********************************************************************************************/
@@ -73,6 +79,14 @@ contract ExerciseC6A {
         return userProfiles[account].isRegistered;
     }
 
+
+    function IsContractPaused
+                            ()
+                             public view
+                            returns (bool)
+    {
+        return operational;
+    }
     /********************************************************************************************/
     /*                                     SMART CONTRACT FUNCTIONS                             */
     /********************************************************************************************/
@@ -83,7 +97,8 @@ contract ExerciseC6A {
                                     bool isAdmin
                                 )
                                 external
-                                requireContractOwner
+                                requireIsOperational
+                                requireContractOwner                                
     {
         require(!userProfiles[account].isRegistered, "User is already registered.");
 
@@ -91,6 +106,17 @@ contract ExerciseC6A {
                                                 isRegistered: true,
                                                 isAdmin: isAdmin
                                             });
+    }
+
+    function setOperationStatus 
+                                (
+                                    bool state
+                                )
+                            external
+                            requireIsOperational
+                            requireContractOwner 
+    {        
+        operational = state;        
     }
 }
 

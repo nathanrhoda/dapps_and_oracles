@@ -23,5 +23,16 @@ contract('ExerciseC6A', async (accounts) => {
 
   });
 
+  it('contract owner can pause a contract', async () => {
+    // ARRANGE 
+    let pauseContract = true;
+
+    // ACT
+    await config.exerciseC6A.setOperationStatus(pauseContract);
+    let contractState = await config.exerciseC6A.IsContractPaused();
+
+    // ASSERT
+    assert.equal(contractState , pauseContract);
+  });
  
 });

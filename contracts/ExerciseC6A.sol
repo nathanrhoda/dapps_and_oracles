@@ -112,8 +112,7 @@ contract ExerciseC6A {
                                 (
                                     bool state
                                 )
-                            external
-                            requireIsOperational
+                            external                            
                             requireContractOwner 
     {        
         operational = state;        

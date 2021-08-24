@@ -139,15 +139,6 @@ contract ExerciseC6A {
                             requireAdmin 
                             requireAdminSignOnlyOnce
     {                        
-        // bool isDuplicate = false;
-        // for(uint c=0; c<multiCalls.length; c++) {
-        //     if(multiCalls[c] == msg.sender) {
-        //         isDuplicate = true;
-        //         break;
-        //     }            
-        // }
-
-        // require(isDuplicate == false, "Caller has already called this function.");    
 
         multiCalls.push(msg.sender);
         if(multiCalls.length >= M) {

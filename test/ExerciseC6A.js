@@ -37,8 +37,8 @@ contract('ExerciseC6A', async (accounts) => {
     await config.exerciseC6A.registerUser(admin1, true, {from: config.owner});
     await config.exerciseC6A.registerUser(admin2, true, {from: config.owner});
     await config.exerciseC6A.registerUser(admin3, true, {from: config.owner});
-        
-    let startStatus = await config.exerciseC6A.IsContractPaused(); 
+    
+    let startStatus = await config.exerciseC6A.IsContractPaused.call(); 
     let changeStatus = !startStatus;
 
     // ACT
@@ -46,8 +46,7 @@ contract('ExerciseC6A', async (accounts) => {
     await config.exerciseC6A.setOperationStatus(changeStatus, {from: admin2});
     
     
-    let newStatus = await config.exerciseC6A.IsContractPaused(); 
-    console.log("Status: " + newStatus);
+    let newStatus = await config.exerciseC6A.IsContractPaused.call(); 
 
     // ASSERT
     assert.equal(changeStatus, newStatus, "Multi-party call failed");

@@ -14,9 +14,12 @@ contract ExerciseC6A {
     }
 
     address private contractOwner;                  // Account used to deploy contract
-    mapping(address => UserProfile) userProfiles;   // Mapping for storing user profiles
+    mapping(address => UserProfile) userProfiles;   // Mapping for storing user profiles    
 
     bool private operational = true;
+
+    uint constant M = 3;
+    address[] multiCalls = new address[](0);
 
     /********************************************************************************************/
     /*                                       EVENT DEFINITIONS                                  */
@@ -29,11 +32,11 @@ contract ExerciseC6A {
     *      The deploying account becomes contractOwner
     */
     constructor
-                                (
+                                (                                    
                                 ) 
                                 public 
     {
-        contractOwner = msg.sender;
+        contractOwner = msg.sender;        
     }
 
     /********************************************************************************************/
@@ -58,6 +61,26 @@ contract ExerciseC6A {
         _;
     }
 
+    modifier requireAdmin()
+    {
+        require(userProfiles[msg.sender].isAdmin, "Caller is not an admin");
+        _;
+    }
+    
+    modifier requireAdminSignOnlyOnce()
+    {
+        bool isDuplicate = false;
+        for(uint c=0; c<multiCalls.length; c++) {
+            if(multiCalls[c] == msg.sender) {
+                isDuplicate = true;
+                break;
+            }            
+        }
+
+        require(isDuplicate == false, "Admin has already called this function.");    
+        _;
+
+    }
     /********************************************************************************************/
     /*                                       UTILITY FUNCTIONS                                  */
     /********************************************************************************************/
@@ -113,8 +136,25 @@ contract ExerciseC6A {
                                     bool state
                                 )
                             external                            
-                            requireContractOwner 
-    {        
+                            requireAdmin 
+                            requireAdminSignOnlyOnce
+    {                        
+        // bool isDuplicate = false;
+        // for(uint c=0; c<multiCalls.length; c++) {
+        //     if(multiCalls[c] == msg.sender) {
+        //         isDuplicate = true;
+        //         break;
+        //     }            
+        // }
+
+        // require(isDuplicate == false, "Caller has already called this function.");    
+
+        multiCalls.push(msg.sender);
+        if(multiCalls.length >= M) {
+            operational = state;
+            multiCalls = new address[](0);
+        }
+
         operational = state;        
     }
 }

@@ -28,5 +28,4 @@ mapping(address => uint256) private sales;
     function rateLimiting(uint amount) external {
 
     }
-
 }

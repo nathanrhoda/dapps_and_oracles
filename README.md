@@ -33,3 +33,11 @@ Payments Protection Patterns
 4) Use modifier in all rate limiting functions
 
 -  Re-entrancy Guard
+Prevents a contract from calling itself in a single transaction
+Best implemented as a  function modifier
+
+- Intialize guard counter
+- Increment counter inside modifier
+- set local variable to value of counter
+- Call function ( using placeholder)
+- Require that local variable has the same value as counter

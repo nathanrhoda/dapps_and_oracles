@@ -19,7 +19,5 @@ contract RateLimiting {
 
         address payable callerAddress = payable(address(uint160(msg.sender)));     
         callerAddress.transfer(amount);
-    }
-  
-
+    }  
 }

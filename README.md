@@ -36,8 +36,12 @@ Payments Protection Patterns
 Prevents a contract from calling itself in a single transaction
 Best implemented as a  function modifier
 
-- Intialize guard counter
-- Increment counter inside modifier
-- set local variable to value of counter
-- Call function ( using placeholder)
-- Require that local variable has the same value as counter
+1) Intialize guard counter
+2) Increment counter inside modifier
+3) set local variable to value of counter
+4) Call function ( using placeholder)
+5) Require that local variable has the same value as counter
+
+
+
+

@@ -14,8 +14,8 @@ contract('ExerciseC6B', async (accounts) => {
     // ARRANGE
     let caller = accounts[0]; 
 
-    // ACT
-    let result = await config.exerciseC6B.balanceOf(caller);
+    // ACT    
+    let result = await caller.balanceOf();
 
     // ASSERT
     assert.equal(result.toNumber(), new BigNumber(1000000).toNumber(), "Contract owner initial tokens incorrect");

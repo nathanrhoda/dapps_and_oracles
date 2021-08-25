@@ -23,7 +23,6 @@ contract ExerciseC6B {
     constructor
                 (
                 )
-                public 
     {
         contractOwner = msg.sender;
     }

@@ -24,5 +24,12 @@ Payments Protection Patterns
 
 
 -  Rate Limiting
+ Controls frequency at which a contract operation can occur to minimize loss
+ Best implemented as a function modifier that accepts a time parameter
+
+1) Initialize "enabled" variable to current time
+2) Require time of call in modifier to be greater than "enabled"
+3) Increment "enabled" by time parameter in modifier
+4) Use modifier in all rate limiting functions
 
 -  Re-entrancy Guard

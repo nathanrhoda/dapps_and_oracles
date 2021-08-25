@@ -1,6 +1,6 @@
 const ExerciseC6A = artifacts.require("ExerciseC6A");
 const ExerciseC6B = artifacts.require("ExerciseC6B");
-const PaymentProtectionPatterns = artifacts.require("PaymentProtectionPatterns");
+const CheckEffectInteraction = artifacts.require("CheckEffectInteraction");
 
 
 module.exports = function(deployer) {

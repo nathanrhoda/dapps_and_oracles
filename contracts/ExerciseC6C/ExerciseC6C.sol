@@ -124,7 +124,7 @@ contract ExerciseC6C {
                                     uint256 bonus
 
                                 )
-                                internal
+                                external
                                 requireContractOwner
     {
         require(employees[id].isRegistered, "Employee is not registered.");

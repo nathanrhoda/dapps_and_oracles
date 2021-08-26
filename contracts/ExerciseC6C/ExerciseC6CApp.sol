@@ -13,6 +13,7 @@ contract ExerciseC6CApp {
 
 
     address private contractOwner;              // Account used to deploy contract
+    ExerciseC6C exerciseC6C;
 
     modifier requireContractOwner()
     {
@@ -56,13 +57,14 @@ contract ExerciseC6CApp {
                                 external
                                 requireContractOwner
     {
-        updateEmployee(
+        exerciseC6C.updateEmployee(
                         id,
                         amount,
                         calculateBonus(amount)
         );
-    }
+    } 
+}
 
-    function updateEmployee(string memory id, uint256 amount, uint256 bonus) internal {}
-
+abstract contract ExerciseC6C {
+    function updateEmployee(string memory id, uint256 sales, uint256 bonus) external virtual ;
 }

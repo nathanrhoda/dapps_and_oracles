@@ -56,3 +56,6 @@ Best implemented as a  function modifier
 8) Keep fallback functions short and require msg.data.length equals zero (This is because there is never a time where a payable fallback function requires msg.data.length to be more than zero)
 9) Explicitly mark visibility of functions and state variables
 10) Does it really need to be on-chain
+
+Good resource for more security specific info 
+https://github.com/ConsenSys/smart-contract-best-practices/blob/master/docs/recommendations.md

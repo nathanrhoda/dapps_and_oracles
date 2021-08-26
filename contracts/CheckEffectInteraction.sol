@@ -16,8 +16,8 @@ mapping(address => uint256) private sales;
 
 
         // Effects
-        uint256  amount = sales[msg.sender];
-        sales[msg.sender] = sales[msg.sender].sub(amount);
+        uint256  saleAmount = sales[msg.sender];
+        sales[msg.sender] = saleAmount.sub(amount);
         address payable callerAddress = payable(address(uint160(msg.sender)));
 
 

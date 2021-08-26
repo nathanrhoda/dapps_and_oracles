@@ -13,7 +13,7 @@ contract ExerciseC6CApp {
 
 
     address private contractOwner;              // Account used to deploy contract
-    ExerciseC6C exerciseC6C;
+    IExerciseC6C exerciseC6C;
 
     modifier requireContractOwner()
     {
@@ -23,9 +23,11 @@ contract ExerciseC6CApp {
     
     constructor
                                 (
+                                    address dataContract
                                 ) 
     {
         contractOwner = msg.sender;
+        exerciseC6C = IExerciseC6C(dataContract);
     }
 
 
@@ -65,6 +67,6 @@ contract ExerciseC6CApp {
     } 
 }
 
-abstract contract ExerciseC6C {
+abstract contract IExerciseC6C {
     function updateEmployee(string memory id, uint256 sales, uint256 bonus) external virtual ;
 }

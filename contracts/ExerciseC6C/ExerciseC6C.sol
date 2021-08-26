@@ -132,42 +132,5 @@ contract ExerciseC6C {
         employees[id].sales = employees[id].sales.add(sales);
         employees[id].bonus = employees[id].bonus.add(bonus);
 
-    }
-
-    function calculateBonus
-                            (
-                                uint256 sales
-                            )
-                            internal
-                            view
-                            requireContractOwner
-                            returns(uint256)
-    {
-        if (sales < 100) {
-            return sales.mul(5).div(100);
-        }
-        else if (sales < 500) {
-            return sales.mul(7).div(100);
-        }
-        else {
-            return sales.mul(10).div(100);
-        }
-    }
-
-    function addSale
-                                (
-                                    string memory id,
-                                    uint256 amount
-                                )
-                                external
-                                requireContractOwner
-    {
-        updateEmployee(
-                        id,
-                        amount,
-                        calculateBonus(amount)
-        );
-    }
-
-
+    }  
 }

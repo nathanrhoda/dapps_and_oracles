@@ -59,3 +59,21 @@ Best implemented as a  function modifier
 
 Good resource for more security specific info 
 https://github.com/ConsenSys/smart-contract-best-practices/blob/master/docs/recommendations.md
+
+
+# Oracle attacks
+
+1) Sybil attacks - Impersonation 1 entity pretends to be many entities
+2) Cartel - A group of people collude to create outcomes that favour them
+3) Mirroring - Multiple nodes will mirror what others are doing to again tip the balance in their favour
+4) Freeloading - Steals data from a oracle and pushes it through as their own with out paying the cost of getting the data
+5) Privacy - Takes advantage of data it has access to and uses that to tip the scale in their favour
+
+Influence outcome based on input oracle is providing to smart contracts
+
+
+# Preventing Oracle attacks
+
+1) Block means of communication with other oracles - No collusion
+2) Block ability to identity oracles - Increases security
+3) Block ability to see answers submitted by other oracles - Hashing / Ensures every oracle is circulating its own data

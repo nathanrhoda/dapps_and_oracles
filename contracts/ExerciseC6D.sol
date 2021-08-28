@@ -87,9 +87,9 @@ contract ExerciseC6D {
     // Register an oracle with the contract
     function registerOracle
                             (
-                            )
+                            )                            
                             payable
-                            external                            
+                            external                                                        
     {
         // CODE EXERCISE 1: Require registration fee
         require(msg.value >= REGISTRATION_FEE, "Registration fee is required");

@@ -61,8 +61,7 @@ contract ExerciseC6D {
 
     constructor
                 (
-                )
-                public 
+                )                                
     {
         contractOwner = msg.sender;
     }
@@ -89,11 +88,11 @@ contract ExerciseC6D {
     function registerOracle
                             (
                             )
-                            external
                             payable
+                            external                            
     {
         // CODE EXERCISE 1: Require registration fee
-        require(msg.value >= REGISTRATION_FEE, "Registration fee  of " + REGISTRATION_FEE + "is required");
+        require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
 
         // CODE EXERCISE 1: Generate three random indexes (range 0-9) using generateIndexes for the calling oracle
         /* Enter code here */
@@ -111,7 +110,7 @@ contract ExerciseC6D {
                         external
                         view
                         requireContractOwner
-                        returns(uint8[3])
+                        returns(uint8[3] memory)
     {
         return oracles[account];
     }
@@ -134,7 +133,7 @@ contract ExerciseC6D {
     // Generate a request
     function fetchFlightStatus
                         (
-                            string flight,
+                            string memory flight,
                             uint256 timestamp                            
                         )
                         external
@@ -147,10 +146,9 @@ contract ExerciseC6D {
 
         // Generate a unique key for storing the request
         bytes32 key = keccak256(abi.encodePacked(index, flight, timestamp));
-        oracleResponses[key] = ResponseInfo({
-                                                requester: msg.sender,
-                                                isOpen: true
-                                            });
+        ResponseInfo storage flightResponse = oracleResponses[key];
+        flightResponse.isOpen = true;
+        flightResponse.requester = msg.sender;        
 
         // CODE EXERCISE 2: Notify oracles that match the index value that they need to fetch flight status
         /* Enter code here */
@@ -172,7 +170,7 @@ contract ExerciseC6D {
     function submitOracleResponse
                         (
                             uint8 index,
-                            string flight,
+                            string memory flight,
                             uint256 timestamp,
                             uint8 statusId
                         )
@@ -218,17 +216,17 @@ contract ExerciseC6D {
     // Query the status of any flight
     function viewFlightStatus
                             (
-                                string flight,
+                                string memory flight,
                                 uint256 timestamp
                             )
                             external
                             view
                             returns(uint8)
-    {
-            require(flights[flightKey].hasStatus, "Flight status not available");
-
-            bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
-            return flights[flightKey].status;
+    {        
+        bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
+        require(flights[flightKey].hasStatus, "Flight status not available");
+            
+        return flights[flightKey].status;
     }
 
 
@@ -238,7 +236,7 @@ contract ExerciseC6D {
                                 address account         
                             )
                             internal
-                            returns(uint8[3])
+                            returns(uint8[3] memory)
     {
         uint8[3] memory indexes;
         indexes[0] = getRandomIndex(account);

@@ -4,7 +4,7 @@ const ExerciseC6C = artifacts.require("ExerciseC6C");
 const CheckEffectInteraction = artifacts.require("CheckEffectInteraction");
 const RateLimiting = artifacts.require("RateLimiting");
 const ReentrancyGuard = artifacts.require("ReentrancyGuard");
-
+const ExerciseC6D = artifacts.require("ExerciseC6D");
 
 module.exports = function(deployer) {
 
@@ -14,4 +14,5 @@ module.exports = function(deployer) {
     deployer.deploy(CheckEffectInteraction);
     deployer.deploy(RateLimiting);
     deployer.deploy(ReentrancyGuard);
+    deployer.deploy(ExerciseC6D);    
 }

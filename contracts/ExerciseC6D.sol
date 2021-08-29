@@ -76,6 +76,12 @@ contract ExerciseC6D {
         _;
     }
 
+    modifier requireRegistrationFee()
+    {
+        require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
+        _;
+    }
+
     /********************************************************************************************/
     /*                                     SMART CONTRACT FUNCTIONS                             */
     /********************************************************************************************/
@@ -87,12 +93,13 @@ contract ExerciseC6D {
     // Register an oracle with the contract
     function registerOracle
                             (
-                            )                            
-                            payable
-                            external                                                        
+                                uint256  amount
+                            )                                                        
+                            external                     
+                            payable                                                                
     {
         // CODE EXERCISE 1: Require registration fee
-        require(msg.value >= REGISTRATION_FEE, "Registration fee is required");
+        require(amount >= REGISTRATION_FEE, "Registration fee is required");
 
         // CODE EXERCISE 1: Generate three random indexes (range 0-9) using generateIndexes for the calling oracle
         /* Enter code here */

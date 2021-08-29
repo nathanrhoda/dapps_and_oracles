@@ -31,10 +31,12 @@ contract('ExerciseC6D', async (accounts) => {
     let fee = await config.exerciseC6D.REGISTRATION_FEE.call();
 
     // ACT
-    for(let a=1; a<TEST_ORACLES_COUNT; a++) {      
-      await config.exerciseC6D.registerOracle.call({ from: accounts[a], value: fee });
-      let result = await config.exerciseC6D.getOracle.call(accounts[a]);      
-      console.log(`Oracle Registered: ${result[0]}, ${result[1]}, ${result[2]}`);
+    for(let a=0; a<TEST_ORACLES_COUNT-1; a++) {      
+      //await config.exerciseC6D.registerOracle({ from: accounts[a], value: fee });
+      await config.exerciseC6D.registerOracle(fee, { from: accounts[a]});
+      let result = await config.exerciseC6D.getOracle.call(accounts[a]);            
+      console.log(result);
+      console.log(`Oracle Registered: ${result[0].toNumber()}, ${result[1].toNumber()}, ${result[2].toNumber()}`);
     }
   });
 
@@ -79,10 +81,12 @@ contract('ExerciseC6D', async (accounts) => {
 
       }
     }
-
-
   });
 
 
- 
+  // it('can generate Indexes', async () => {            
+  //     let result = await config.exerciseC6D.generateIndexes.call(accounts[0]);      
+  //     console.log(result);
+  //     console.log(`Oracle Registered: ${result[0].toNumber()}, ${result[1].toNumber()}, ${result[2].toNumber()}`);
+  //   });   
 });

@@ -148,7 +148,7 @@ contract ExerciseC6D {
         // Generate a number between 0 - 9 to determine which oracles may respond
 
         // CODE EXERCISE 2: Replace the hard-coded value of index with a random index based on the calling account
-        uint8 index = 0;  /* Replace code here */
+        uint8 index = getRandomIndex(msg.sender);  
 
 
         // Generate a unique key for storing the request
@@ -158,7 +158,7 @@ contract ExerciseC6D {
         flightResponse.requester = msg.sender;        
 
         // CODE EXERCISE 2: Notify oracles that match the index value that they need to fetch flight status
-        /* Enter code here */
+        emit OracleRequest(index, flight, timestamp);
 
     }
 
@@ -187,7 +187,8 @@ contract ExerciseC6D {
 
 
         // CODE EXERCISE 3: Require that the response is being submitted for a request that is still open
-        bytes32 key = 0; /* Replace 0 with code to generate a key using index, flight and timestamp */
+        bytes32 key = keccak256(abi.encodePacked(index, flight, timestamp));
+        require(oracleResponses[key].isOpen, "Requests are closed for this oracle request");       
 
 
         oracleResponses[key].responses[statusId].push(msg.sender);
@@ -197,19 +198,23 @@ contract ExerciseC6D {
         if (oracleResponses[key].responses[statusId].length >= MIN_RESPONSES) {
 
             // CODE EXERCISE 3: Prevent any more responses since MIN_RESPONSE threshold has been reached
-            /* Enter code here */
+            require(oracleResponses[key].responses[statusId].length >= MIN_RESPONSES, "Minimum responses have been reached");
 
             // CODE EXERCISE 3: Announce to the world that verified flight status information is available
-            /* Enter code here */
+            emit FlightStatusInfo(flight, timestamp, statusId, true); 
 
             // Save the flight information for posterity
             bytes32 flightKey = keccak256(abi.encodePacked(flight, timestamp));
             flights[flightKey] = FlightStatus(true, statusId);
+
+            
+
+            
         } else {
             // Oracle submitting response but MIN_RESPONSES threshold not yet reached
 
             // CODE EXERCISE 3: Announce to the world that verified flight status information is available
-            /* Enter code here */
+            emit FlightStatusInfo(flight, timestamp, statusId, false);
         }
     }
 
